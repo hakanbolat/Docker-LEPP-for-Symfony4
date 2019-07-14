@@ -31,6 +31,7 @@ services:
             - php
         volumes:
             - ./logs/nginx/:/var/log/nginx:cached
+            - ../:/var/www/symfony
 networks:
     postgres:
         driver: bridge
