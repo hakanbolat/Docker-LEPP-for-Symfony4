@@ -1,6 +1,6 @@
 ![](https://i.ytimg.com/vi/NIEKB5iRcOs/maxresdefault.jpg)
 ## Setting up Symfony 4 Application with Docker
-The Docker will be used to run all the services such as Nginx, PostgreSQL and PHP-FPM. Note: The Symfony 4 application's code should be located on your local machine.
+The Docker will be used to run all the services such as Nginx, PostgreSQL and PHP-FPM(7.3). Note: The Symfony 4 application's code should be located on your local machine.
 #### How to run
 ###### Let's start!
 
