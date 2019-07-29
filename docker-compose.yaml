@@ -17,8 +17,8 @@ services:
         ports:
             - '9002:9000'
         volumes:
-            - ./:/var/www/symfony:cached
-            - ./docker/logs/symfony:/var/www/symfony/var/logs:cached
+            - ../:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/logs:cached
         links:
             - db
     nginx:
@@ -28,8 +28,8 @@ services:
         links:
             - php
         volumes:
-            - ./docker/logs/nginx/:/var/log/nginx:cached
-            - ./:/var/www/symfony
+            - ./logs/nginx/:/var/log/nginx:cached
+            - ../:/var/www/symfony
         depends_on:
             - php
 volumes:
