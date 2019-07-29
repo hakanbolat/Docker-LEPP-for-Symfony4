@@ -13,7 +13,7 @@ services:
             - "5432:5432"
         restart: always
     php:
-        build: docker/php-fpm
+        build: php-fpm
         ports:
             - '9002:9000'
         volumes:
@@ -22,7 +22,7 @@ services:
         links:
             - db
     nginx:
-        build: docker/nginx
+        build: nginx
         ports:
             - '8080:80'
         links:
