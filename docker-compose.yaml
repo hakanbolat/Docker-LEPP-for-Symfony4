@@ -1,41 +1,36 @@
 version: '3.7'
 services:
-    postgres:
+    db:
         image: postgres
+        container_name: db
         environment:
             POSTGRES_USER: ${POSTGRES_USER:-postgres}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgreshkn}
-            PGDATA: /data/postgres
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
             DB_HOST: 127.0.0.1
         volumes:
-            - postgres:/data/postgres
+            - db-data:/var/lib/postgresql/data:rw
         ports:
             - "5432:5432"
-        networks:
-            - postgres
-        restart: unless-stopped
+        restart: always
     php:
-        build: php-fpm
+        build: docker/php-fpm
         ports:
             - '9002:9000'
         volumes:
-            - ../:/var/www/symfony:cached
-            - ./logs/symfony:/var/www/symfony/var/logs:cached
+            - ./:/var/www/symfony:cached
+            - ./docker/logs/symfony:/var/www/symfony/var/logs:cached
         links:
-            - postgres
+            - db
     nginx:
-        build: nginx
+        build: docker/nginx
         ports:
             - '8080:80'
         links:
             - php
         volumes:
-            - ./logs/nginx/:/var/log/nginx:cached
-            - ../:/var/www/symfony
-networks:
-    postgres:
-        driver: bridge
+            - ./docker/logs/nginx/:/var/log/nginx:cached
+            - ./:/var/www/symfony
+        depends_on:
+            - php
 volumes:
-    nginx:
-    php:
-    postgres:
+    db-data: {}
